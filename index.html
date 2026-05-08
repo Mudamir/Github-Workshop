@@ -1,242 +1,221 @@
 <!DOCTYPE html>
-<!-- GitHub Basics Workshop — Tailwind via CDN, no build step -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GitHub Basics Workshop</title>
+    <style>
+      :root {
+        --bg: #f7f9fc;
+        --card: #ffffff;
+        --text: #1f2937;
+        --muted: #6b7280;
+        --primary: #2563eb;
+        --border: #dbe3ef;
+        --success: #0f9d58;
+      }
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              gh: {
-                bg: "#0d1117",
-                canvas: "#010409",
-                elevated: "#161b22",
-                border: "#30363d",
-                muted: "#8b949e",
-                accent: "#58a6ff",
-                accentMuted: "#388bfd66",
-                success: "#3fb950",
-                warning: "#d29922",
-                danger: "#f85149",
-                text: "#e6edf3",
-                subtle: "#6e7681",
-              },
-            },
-            fontFamily: {
-              sans: [
-                "ui-sans-serif",
-                "system-ui",
-                "-apple-system",
-                "Segoe UI",
-                "Roboto",
-                "Helvetica Neue",
-                "Arial",
-                "sans-serif",
-              ],
-              mono: ["ui-monospace", "SFMono-Regular", "Menlo", "Consolas", "monospace"],
-            },
-            boxShadow: {
-              panel: "0 0 0 1px #30363d, 0 8px 24px rgba(0,0,0,.35)",
-              focus: "0 0 0 3px #388bfd40",
-            },
-            animation: {
-              blink: "blink 1.2s infinite",
-              drift: "drift 18s linear infinite",
-            },
-            keyframes: {
-              blink: { "50%": { opacity: "0.35" } },
-              drift: { to: { backgroundPosition: "40px 40px, 40px 40px" } },
-            },
-          },
-        },
-      };
-    </script>
-    <style type="text/tailwindcss">
-      @layer utilities {
-        .grid-gh {
-          background-image:
-            linear-gradient(#30363d 1px, transparent 1px),
-            linear-gradient(90deg, #30363d 1px, transparent 1px);
-          background-size: 40px 40px;
-        }
-        .clip-panel {
-          clip-path: polygon(
-            20px 0, calc(100% - 20px) 0, 100% 20px,
-            100% calc(100% - 20px), calc(100% - 20px) 100%,
-            20px 100%, 0 calc(100% - 20px), 0 20px);
-        }
-        .clip-side {
-          clip-path: polygon(
-            12px 0, 100% 0, 100% calc(100% - 12px),
-            calc(100% - 12px) 100%, 0 100%, 0 12px);
-        }
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        color: var(--text);
+        background: linear-gradient(180deg, #eef4ff 0%, var(--bg) 40%);
+        font-size: 18px;
+        line-height: 1.75;
+      }
+
+      .container {
+        width: min(980px, 92%);
+        margin: 0 auto;
+      }
+
+      header {
+        padding: 32px 0 20px;
+      }
+
+      .title {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+      }
+
+      .subtitle {
+        margin: 8px 0 0;
+        color: var(--muted);
+        font-size: 1.15rem;
+      }
+
+      .status {
+        margin-top: 16px;
+        display: inline-block;
+        background: #e8f7ee;
+        color: var(--success);
+        border: 1px solid #c8ecd6;
+        border-radius: 999px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 10px 0 34px;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 18px;
+      }
+
+      .card h2 {
+        margin-top: 0;
+        font-size: 1.35rem;
+      }
+
+      .card p,
+      .card li {
+        line-height: 1.6;
+      }
+
+      .card p {
+        color: var(--muted);
+      }
+
+      .big-text {
+        font-size: 1.08rem;
+        color: #111827;
+      }
+
+      .command-list {
+        list-style: none;
+        margin: 12px 0 0;
+        padding: 0;
+      }
+
+      .command-list li {
+        background: #f8fbff;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 10px 12px;
+        margin-bottom: 10px;
+      }
+
+      .command-list code {
+        margin: 0 0 6px;
+      }
+
+      ul,
+      ol {
+        margin: 10px 0 0 18px;
+        padding: 0;
+      }
+
+      code {
+        display: block;
+        margin-top: 10px;
+        padding: 10px 12px;
+        background: #0f172a;
+        color: #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        overflow-x: auto;
+      }
+
+      .button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 14px;
+        background: var(--primary);
+        color: #fff;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .button:hover {
+        background: #1e4fd1;
+      }
+
+      footer {
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        padding: 16px 0 24px;
+        font-size: 0.9rem;
       }
     </style>
-    <link rel="stylesheet" href="Github-Workshop.css" />
   </head>
-
-  <body class="min-h-screen font-sans text-gh-text bg-gh-canvas antialiased overflow-x-hidden">
-    <div class="fixed inset-0 z-0 grid-gh opacity-[0.35] animate-drift pointer-events-none"></div>
-    <div class="fixed inset-0 z-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,#1f6feb22,#0d1117_55%)] pointer-events-none"></div>
-
-    <header
-      class="relative z-10 border-b border-gh-border bg-gh-bg/90 backdrop-blur-md"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-3 py-3.5">
-        <div class="flex items-center gap-3 min-w-0">
-          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-gh-elevated border border-gh-border text-gh-accent font-mono text-sm font-semibold" aria-hidden="true">GH</span>
-          <div class="min-w-0">
-            <p class="text-sm font-semibold text-gh-text truncate">GitHub basics workshop</p>
-            <p class="text-xs text-gh-muted truncate">Version control for real projects</p>
-          </div>
-        </div>
-        <div class="flex items-center gap-4 text-xs text-gh-muted">
-          <span class="hidden sm:inline font-mono text-gh-subtle">github.com</span>
-          <span class="inline-flex items-center gap-1.5 rounded-full border border-gh-border bg-gh-elevated/80 px-2.5 py-1 text-gh-success">
-            <span class="h-1.5 w-1.5 rounded-full bg-gh-success animate-blink" aria-hidden="true"></span>
-            Session live
-          </span>
-        </div>
-      </div>
+  <body>
+    <header class="container">
+      <h1 class="title">GitHub Basics Workshop</h1>
+      <p class="subtitle">
+        Simple beginner page: open this file in any browser.
+      </p>
+      <p class="status">Ready for class</p>
     </header>
 
-    <main
-      class="relative z-[2] min-h-[calc(100vh-7.25rem)] grid grid-cols-1 md:grid-cols-[minmax(0,1fr)_minmax(0,1.85fr)_minmax(0,1fr)] gap-5 md:gap-6 px-4 sm:px-6 lg:px-8 py-8 md:py-10 items-stretch max-w-7xl mx-auto w-full"
-    >
-      <!-- Left: core concepts -->
-      <aside
-        class="order-2 md:order-1 flex flex-col clip-side rounded-lg border border-gh-border bg-gh-elevated/70 shadow-panel p-5 md:p-6"
-      >
-        <h2 class="text-xs font-semibold uppercase tracking-wider text-gh-muted mb-4">
-          Core concepts
-        </h2>
-        <p class="text-xs text-gh-subtle mb-4 leading-relaxed">
-          We’ll connect each idea to buttons and screens you already see on GitHub.
+    <main class="container">
+      <section class="card">
+        <h2>BIG TEXT AREA (Edit this for Git practice)</h2>
+        <p class="big-text">
+          This is a large editable text block for classroom practice. Students can
+          change any sentence here, commit the change, and then merge with other
+          branches. Because this paragraph is intentionally long and clear, it is
+          very easy to see what changed in GitHub diff view and in pull requests.
+          You can replace this text with your own lesson message, class reminder,
+          deadline notes, or assignment instructions.
         </p>
-        <ul class="space-y-4 text-sm">
-          <li>
-            <div class="flex justify-between text-xs mb-1.5">
-              <span class="font-medium text-gh-text">Repository</span>
-              <span class="font-mono text-gh-accent">remote</span>
-            </div>
-            <div class="h-1.5 rounded-full bg-gh-border overflow-hidden">
-              <div class="h-full w-[85%] rounded-full bg-gradient-to-r from-gh-accentMuted to-gh-accent"></div>
-            </div>
-          </li>
-          <li>
-            <div class="flex justify-between text-xs mb-1.5">
-              <span class="font-medium text-gh-text">Commit</span>
-              <span class="font-mono text-gh-muted">snapshot</span>
-            </div>
-            <div class="h-1.5 rounded-full bg-gh-border overflow-hidden">
-              <div class="h-full w-[70%] rounded-full bg-gradient-to-r from-gh-accentMuted to-gh-accent"></div>
-            </div>
-          </li>
-          <li>
-            <div class="flex justify-between text-xs mb-1.5">
-              <span class="font-medium text-gh-text">Branch</span>
-              <span class="font-mono text-gh-muted">parallel line</span>
-            </div>
-            <div class="h-1.5 rounded-full bg-gh-border overflow-hidden">
-              <div class="h-full w-[55%] rounded-full bg-gradient-to-r from-gh-accentMuted to-gh-accent"></div>
-            </div>
-          </li>
-          <li>
-            <div class="flex justify-between text-xs mb-1.5">
-              <span class="font-medium text-gh-text">Push &amp; pull</span>
-              <span class="font-mono text-gh-success">sync</span>
-            </div>
-            <div class="h-1.5 rounded-full bg-gh-border overflow-hidden">
-              <div class="h-full w-[40%] rounded-full bg-gradient-to-r from-emerald-900/80 to-gh-success"></div>
-            </div>
-          </li>
-        </ul>
-      </aside>
-
-      <!-- Center: hero -->
-      <section
-        class="order-1 md:order-2 flex flex-col justify-center clip-panel rounded-xl border border-gh-border bg-gh-elevated/80 shadow-panel px-6 py-8 sm:px-10 sm:py-10 text-center"
-      >
-        <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-gh-border bg-gh-bg text-gh-accent">
-          <svg class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true">
-            <circle cx="12" cy="6" r="2.25" />
-            <circle cx="6" cy="18" r="2.25" />
-            <circle cx="18" cy="18" r="2.25" />
-            <path stroke-linecap="round" d="M12 8.25v2M12 14.25h-4.5M12 14.25h4.5M8.4 17.2l-1.65-1.65M15.6 17.2l1.65-1.65" />
-          </svg>
-        </div>
-
-        <p class="text-xs font-semibold uppercase tracking-widest text-gh-muted mb-2">Hands-on intro</p>
-        <h1 class="text-2xl sm:text-3xl font-bold text-gh-text tracking-tight mb-2">
-          For Githhub Workshop Sample Data
-        </h1>
-        <p class="text-sm text-gh-muted max-w-lg mx-auto mb-6 leading-relaxed">
-          Create a repository, save changes with commits, and share work safely—skills every developer uses every day.
+        <p class="big-text">
+          Example practice task: Student A changes the first sentence, Student B
+          changes the second sentence, then both try to merge. This helps explain
+          merge conflicts in a simple and visual way. Repeat this step a few times
+          so everyone can understand commit history, branch comparison, and merge
+          behavior in a real project workflow.
         </p>
-
-        <div
-          class="inline-flex flex-wrap items-center justify-center gap-2 mb-6 rounded-lg border border-gh-border bg-gh-bg/80 px-4 py-2.5 text-xs text-gh-muted"
-        >
-          <span class="font-mono text-gh-subtle">status</span>
-          <span class="text-gh-border">|</span>
-          <span class="text-gh-success font-medium">Ready for your first commit</span>
-        </div>
-
-        <div class="relative text-left rounded-lg border border-gh-border bg-gh-bg/60 px-5 py-4 mb-6">
-          <p class="text-[11px] font-semibold uppercase tracking-wide text-gh-muted mb-2">Try it in this repo</p>
-          <p class="text-sm text-gh-text mb-3">
-            Change the headline or this box, then stage and commit—your slide updates become part of the lesson history.
-          </p>
-          <code class="block rounded-md bg-gh-canvas border border-gh-border px-3 py-2 font-mono text-xs text-gh-accent">
-            git add . → git commit -m &quot;Describe your change&quot;
-          </code>
-        </div>
-
-        <a
-          href="https://github.com/new"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-gh-accent px-6 py-2.5 text-sm font-semibold text-gh-canvas shadow-sm transition hover:bg-[#79b8ff] focus:outline-none focus-visible:shadow-focus"
-        >
-          Create a repository on GitHub
-          <span aria-hidden="true">→</span>
-        </a>
       </section>
 
-      <!-- Right: workflow -->
-      <aside
-        class="order-3 flex flex-col clip-side rounded-lg border border-gh-border bg-gh-elevated/70 shadow-panel p-5 md:p-6"
-      >
-        <h2 class="text-xs font-semibold uppercase tracking-wider text-gh-muted mb-4">
-          Everyday workflow
-        </h2>
-        <ol class="space-y-3 text-[13px] leading-relaxed text-gh-muted list-decimal list-inside marker:text-gh-accent">
-          <li class="pl-0.5"><span class="text-gh-text">Clone or create</span> a repo on GitHub</li>
-          <li class="pl-0.5">Edit files <span class="text-gh-subtle">locally</span> or in the web editor</li>
-          <li class="pl-0.5"><span class="text-gh-text">Stage</span> what you want in the next commit</li>
-          <li class="pl-0.5"><span class="text-gh-text">Commit</span> with a clear message</li>
-          <li class="pl-0.5"><span class="text-gh-text">Push</span> to update the remote</li>
-        </ol>
-        <div class="mt-auto pt-6 border-t border-gh-border/80">
-          <p class="text-[11px] font-mono text-gh-subtle leading-relaxed">
-            docs.github.com · guides · hello-world
-          </p>
-        </div>
-      </aside>
+      <section class="card">
+        <h2>Basic Git Commands</h2>
+        <ul class="command-list">
+          <li>
+            <code>git add .</code>
+            Add changed files to the staging area (prepare files for commit).
+          </li>
+          <li>
+            <code>git commit -m "your message"</code>
+            Save a snapshot of your staged changes with a short message.
+          </li>
+          <li>
+            <code>git push</code>
+            Upload your local commits to GitHub (remote repository).
+          </li>
+          <li>
+            <code>git checkout branch-name</code>
+            Switch to another branch to work on a different version.
+          </li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Quick practice</h2>
+        <p>
+          Ask students to change one sentence on this page, save it, then commit.
+          This helps them understand version history in a very simple way.
+        </p>
+        <a class="button" href="https://github.com/new" target="_blank" rel="noopener noreferrer">
+          Create a repository on GitHub
+        </a>
+      </section>
     </main>
 
-    <footer
-      class="relative z-10 border-t border-gh-border bg-gh-bg/90 backdrop-blur-md"
-    >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-2 py-3 text-xs text-gh-muted">
-        <span>Workshop v1 · Tailwind CDN · no build required</span>
-        <span class="font-mono text-gh-subtle">git · GitHub · collaborate</span>
-      </div>
+    <footer class="container">
+      Workshop page using only HTML + CSS. Works by opening <strong>index.html</strong> directly.
     </footer>
   </body>
 </html>
