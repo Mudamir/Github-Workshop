@@ -1,0 +1,48 @@
+GIT VERSION CONTROL CHEAT SHEET
+================================
+
+1. INITIAL SETUP
+----------------
+git config --global user.name "Your Name"          # Set your identity name
+git config --global user.email "you@example.com"  # Set your identity email
+git init                                          # Initialize a new local repository
+
+2. STARTING A PROJECT
+---------------------
+git clone <url>                                   # Download a repository from GitHub
+git status                                        # See which files are staged/untracked
+
+3. THE BASIC WORKFLOW
+---------------------
+git add <filename>                                # Stage a specific file
+git add .                                         # Stage ALL changes in the folder
+git commit -m "Your descriptive message"          # Save a snapshot of staged changes
+
+4. BRANCHING & NAVIGATION
+-------------------------
+git branch                                        # List all branches
+git checkout -b <branch-name>                     # Create and switch to a new branch
+git checkout <branch-name>                        # Switch to an existing branch
+git branch -d <branch-name>                       # Delete a branch (Safe)
+git branch -D <branch-name>                       # Delete a branch (Force)
+
+5. WORKING WITH GITHUB (REMOTES)
+--------------------------------
+git remote -v                                     # View your remote connections
+git push origin <branch-name>                  # Upload commits to GitHub
+git pull origin <branch-name>                     # Download changes from GitHub to local
+
+6. THE 3 TYPES OF MERGES
+------------------------
+# Standard Merge (The Historian)
+git merge <branch-name>                           # Keeps full history; may open Vim
+
+# Squash Merge (The Editor)
+git merge --squash <branch-name>                  # Flattens branch into one commit
+
+# Rebase (The Time Traveler)
+git rebase main                                   # Moves your work to the tip of main
+
+7. CLEANUP
+----------
+git push origin --delete <branch-name>            # Delete branch on GitHub
